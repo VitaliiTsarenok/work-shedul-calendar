@@ -1,0 +1,71 @@
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #5e6069;
+  
+  }
+  
+  .nav, #touch-menu{
+    margin: 20px 0;
+    background: #5e6069;
+  }
+  .nav ul {
+      margin: 0;
+    padding: 0;
+    
+  }
+  .nav li {
+      margin:10px;
+      padding: 0;
+      list-style: none;
+      display: inline-block;
+      *display:inline; /* ie7 */
+  }
+  .nav a, #touch-menu {
+      padding: 3px 12px;
+      text-decoration: none;
+      color: rgb(245, 243, 243);
+      line-height: 100%;
+  }
+  .nav a:hover {
+    color: rgb(70, 15, 221);
+    background: #e9eaf0
+  }
+  
+  #touch-menu{
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .nav {
+        display: none;
+      }	
+      .nav li {
+      margin:10px;
+      padding: 0;
+      list-style: none;
+      display: block;
+      *display:inline; /* ie7 */
+    }
+  
+    #touch-menu {
+      display: block;
+    }
+  
+    .show {
+        display:block;
+      }	
+    
+      .nav a {
+          display: block;
+          padding: 5px 5px 5px 32px;
+          text-align: left;
+      }
+   
+      .nav a:hover, {
+      color: rgb(70, 15, 221);
+      background: #e9eaf0
+    }
+  
+  }
+  

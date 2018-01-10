@@ -1,0 +1,70 @@
+.calendar{
+  display: block;
+  align-items: center;
+}
+
+
+input{
+  margin: 10px;
+  width: 50px;
+}
+
+label{
+  margin: 10px;
+}
+
+.calendar-container {
+  width: 20%;
+  text-align: center;
+  display: inline-block;
+
+}
+
+
+.box {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 2px solid ;
+}
+
+.one {
+  grid-column: 1;
+  
+}
+.two { 
+  grid-column: 2;
+  
+}
+.three {
+  grid-column: 3;
+}
+.four {
+  grid-column: 4;
+}
+.five {
+  grid-column: 5;
+}
+.six {
+  grid-column: 6;
+}
+.seven {
+  grid-column: 7;
+}
+
+.active{
+  color: blue;
+}
+
+@media screen and (max-width: 600px) {
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .calendar-container {
+    width: 100%;
+    text-align: center;
+  
+  }
+}
