@@ -9,13 +9,60 @@ class Calendar extends Component {
       work : 3,
       weekend : 3,
       day : 1,
+      year:null,
+      month:null,
+      lastday:null,
+
+      calendar: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.madeCalendar = this.madeCalendar.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
 
     return nextState !== this.state;
+  }
+
+  componentWillMount(){
+    let date = new Date();
+    let Year = + date.getFullYear();
+    let Month = + date.getMonth();
+    let Lastday = + new Date(Year, Month + 1, 0).getDate();
+
+      this.setState({year: Year});
+      this.setState({month: Month});
+      this.setState({lastday: Lastday});
+  }
+
+  componentDidMount() {
+    this.madeCalendar();
+  }
+
+  madeCalendar(){
+
+    let year = this.state.year;
+    let month = this.state.month;
+    let firstday = 1;
+    let lastday = this.state.lastday;
+    const Calendar = [];
+    const WeekDays =['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
+
+      for (firstday; firstday<=lastday; firstday++ ){
+        let day = firstday;
+        let d = new Date(year, month, day);
+        let dayofweek = + d.getUTCDay();
+        let numberdate = d.getDate();
+        let inCalendar = <div key = {firstday} className = {`${WeekDays[dayofweek]}`}>{numberdate}</div>;
+        Calendar.push(inCalendar);
+      };
+
+      console.log('', Calendar)
+
+      this.setState(
+        {calendar: Calendar, 
+        }
+      );
   }
 
   handleInputChange(event) {
@@ -29,58 +76,47 @@ class Calendar extends Component {
   }
 
   render() {
-    let date = new Date();
-    let year =+date.getFullYear();
-    let month = +date.getMonth();
-    let firstday = 1;
-    let lastday =+ new Date(year, month + 1, 0).getDate();
-    const Calendar = [];
-    const WeekDays =['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
-    const options = {
-      year: 'numeric',
-      month: 'long'
-    };
-    let MonthInCalendar = date.toLocaleString("en-US", options).toUpperCase();
-    console.log('', MonthInCalendar);
-    console.log('', date.toString())
 
-      for (firstday; firstday<=lastday; firstday++ ){
-        let day = firstday;
-        let d = new Date(year, month, day);
-        let dayofweek = + d.getUTCDay();
-        let numberdate = d.getDate();
-        let inCalendar = <div key = {firstday} className = {`${WeekDays[dayofweek]}`}>{numberdate}</div>;
-        Calendar.push(inCalendar);
-      };
+    //let date = new Date();
+    //let year =+date.getFullYear();
+    //let month = +date.getMonth();
     
-    const WorkShedul = Calendar.concat();
-    let weekend = +this.state.weekend;
-    let workday =+this.state.work;
-    let inputnumber = +this.state.day;
-    let inputstart = + inputnumber-1;
+    const WeekDays =['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
 
-    for (let start = + inputstart; start < WorkShedul.length; start += weekend+1) {
-      let arrnumber = start;
-      let day = start+1;
-      let d = new Date(year, month, day);
-      let dayofweek = + d.getUTCDay();
-      let numberdate = d.getDate();
-      let dateinarr =<div key = {day} className = {`${WeekDays[dayofweek]} + active` }>{numberdate}</div>;;
-      if (start === WorkShedul.length) break;
-      WorkShedul[arrnumber]=dateinarr;
-        
-      for (var j = 0; j < workday-1; j++) {
-       start +=1 ; 
-        let arrnumber = start;
-        let day = start+1;
-        let d = new Date(year, month, day);
-        let dayofweek = + d.getUTCDay();
-        let numberdate = d.getDate();
-        let dateinarr = <div key = {day} className = {`${WeekDays[dayofweek]} + active`}>{numberdate}</div>;;
-        if (start === WorkShedul.length) break;
-          WorkShedul[arrnumber]=dateinarr;
-     }
-};
+    //const options = {
+    //  year: 'numeric',
+    //  month: 'long'
+    //};
+    //const MonthInCalendar = new Date.toLocaleString("en-US", options).toUpperCase();
+    
+    //const WorkShedul = this.state.calendar;
+    //let weekend = +this.state.weekend;
+    //let workday =+this.state.work;
+    //let inputnumber = +this.state.day;
+    //let inputstart = + inputnumber-1;
+//
+    //for (let start = + inputstart; start < WorkShedul.length; start += weekend+1) {
+    //  let arrnumber = start;
+    //  let day = start+1;
+    //  let d = new Date(year, month, day);
+    //  let dayofweek = + d.getUTCDay();
+    //  let numberdate = d.getDate();
+    //  let dateinarr =<div key = {day} className = {`${WeekDays[dayofweek]} + active` }>{numberdate}</div>;;
+    //  if (start === WorkShedul.length) break;
+    //  WorkShedul[arrnumber]=dateinarr;
+    //    
+    //  for (var j = 0; j < workday-1; j++) {
+    //   start +=1 ; 
+    //    let arrnumber = start;
+    //    let day = start+1;
+    //    let d = new Date(year, month, day);
+    //    let dayofweek = + d.getUTCDay();
+    //    let numberdate = d.getDate();
+    //    let dateinarr = <div key = {day} className = {`${WeekDays[dayofweek]} + active`}>{numberdate}</div>;;
+    //    if (start === WorkShedul.length) break;
+    //      WorkShedul[arrnumber]=dateinarr;
+    // }
+//};
 
 
     return (
@@ -94,7 +130,6 @@ class Calendar extends Component {
           <input name="weekend" id="weekend" type="text" value={this.state.weekend} onChange={this.handleInputChange}/>
       </form>
         <div className = 'calendar-container'>
-        <span className = 'calendar-month'>{MonthInCalendar}</span>
         <div className ='box' >
           <div className = {`${WeekDays[0]}`}>MON</div>
           <div className = {`${WeekDays[1]}`}>TUE</div>
@@ -103,7 +138,7 @@ class Calendar extends Component {
           <div className = {`${WeekDays[4]}`}>FRI</div>
           <div className = {`${WeekDays[5]}`}>SAT</div>
           <div className = {`${WeekDays[6]}`}>SUN</div> 
-          {WorkShedul}
+          {this.state.calendar}
         </div>
         </div>
       </div>
